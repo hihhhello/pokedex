@@ -1,0 +1,14 @@
+/node_modules
+/*/**/node_modules
+
+# testing
+/coverage
+
+# production
+/*/**/build
+/*/**/dist
+
+
+.env
+.env.development
+.env.production
