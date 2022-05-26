@@ -3,7 +3,7 @@ import { GitHub } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { GITHUB_OAUTH_LINK } from 'shared/lib';
 
-export const GithubAuthButton = React.memo(() => {
+export const GithubAuthButton = () => {
   const onClickHandler = () => {
     window.location.replace(GITHUB_OAUTH_LINK);
   };
@@ -18,4 +18,4 @@ export const GithubAuthButton = React.memo(() => {
       Sign In via GitHub OAuth
     </Button>
   );
-});
+};

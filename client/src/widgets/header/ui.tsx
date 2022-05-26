@@ -4,7 +4,7 @@ import { Stack, IconButton, Typography } from '@mui/material';
 import { userModel } from 'entities/user';
 import { NavLink } from 'react-router-dom';
 
-export const Header = React.memo(() => {
+export const Header = () => {
   const { logout, user, authorizing } = userModel.context.useUserContext();
 
   const onLogout = () => {
@@ -71,4 +71,4 @@ export const Header = React.memo(() => {
       </Stack>
     )
   );
-});
+};

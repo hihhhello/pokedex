@@ -16,18 +16,16 @@ export interface Props {
   sx?: SxProps;
 }
 
-export const PokemonCard = React.memo(
-  ({ actions = [], name, avatarUrl, sx }: Props) => {
-    return (
-      <Card sx={sx}>
-        <CardHeader title={name} />
-        <CardMedia component="img" src={avatarUrl || defaultPokemonPng} />
-        <CardActions>
-          {actions.map((item, i) => (
-            <React.Fragment key={i}>{item}</React.Fragment>
-          ))}
-        </CardActions>
-      </Card>
-    );
-  }
-);
+export const PokemonCard = ({ actions = [], name, avatarUrl, sx }: Props) => {
+  return (
+    <Card sx={sx}>
+      <CardHeader title={name} />
+      <CardMedia component="img" src={avatarUrl || defaultPokemonPng} />
+      <CardActions>
+        {actions.map((item, i) => (
+          <React.Fragment key={i}>{item}</React.Fragment>
+        ))}
+      </CardActions>
+    </Card>
+  );
+};

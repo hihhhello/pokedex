@@ -1,7 +1,7 @@
 import React from 'react';
 import { Stack, CircularProgress } from '@mui/material';
 
-export const LoadingPage = React.memo(() => {
+export const LoadingPage = () => {
   return (
     <Stack
       width="100%"
@@ -12,4 +12,4 @@ export const LoadingPage = React.memo(() => {
       <CircularProgress size={150} />
     </Stack>
   );
-});
+};
