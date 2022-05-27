@@ -13,4 +13,8 @@ export class ApiError extends Error {
   static BadRequest(message: string, errors: ValidationError[] = []) {
     return new ApiError(400, message, errors);
   }
+
+  static NotFound(message: string, errors: ValidationError[] = []) {
+    return new ApiError(404, message, errors);
+  }
 }
