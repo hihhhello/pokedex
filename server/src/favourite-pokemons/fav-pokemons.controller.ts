@@ -1,4 +1,3 @@
-import { resolveSoa } from 'dns';
 import { Request, Router, Response, NextFunction } from 'express';
 import { checkSchema, validationResult } from 'express-validator';
 import { ApiError } from '../exceptions';
@@ -7,8 +6,20 @@ import { createValidationSchema } from './helpers';
 
 export const router = Router();
 
+router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { id } = req.params;
+
+    const pokemon = await Service.getOne(+id);
+
+    return res.status(200).json(pokemon);
+  } catch (e) {
+    next(e);
+  }
+});
+
 router.post(
-  '/:userId',
+  '/user/:userId',
   checkSchema(createValidationSchema),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -30,7 +41,7 @@ router.post(
 );
 
 router.get(
-  '/:userId',
+  '/user/:userId',
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { userId } = req.params;
@@ -49,7 +60,7 @@ router.get(
 
 // Return apiIds of favourite pokemons
 router.get(
-  '/:userId/apiIds',
+  '/user/:userId/apiIds',
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { userId } = req.params;
@@ -63,7 +74,7 @@ router.get(
 );
 
 router.delete(
-  '/:userId/:pokApiId',
+  '/user/:userId/:pokApiId',
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { userId, pokApiId } = req.params;

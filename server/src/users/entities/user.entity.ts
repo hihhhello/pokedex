@@ -6,6 +6,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { PokRating } from '../../pok-ratings';
 import { UserToFavPokemon } from './user-to-fav-pokemon.entity';
 
 @Entity('user')
@@ -39,4 +40,7 @@ export class User extends BaseEntity {
 
   @OneToMany(() => UserToFavPokemon, (entity) => entity.user)
   userToFavPokemons: UserToFavPokemon[];
+
+  @OneToMany(() => PokRating, (pokRating) => pokRating.user)
+  pokRatings: PokRating[];
 }

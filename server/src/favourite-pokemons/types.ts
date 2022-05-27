@@ -5,6 +5,11 @@ export type AddFavPokemonDto = Pick<
   FavouritePokemon,
   Exclude<
     keyof FavouritePokemon,
-    keyof BaseEntity | 'id' | 'createdAt' | 'userToFavPokemons'
+    | keyof BaseEntity
+    | 'id'
+    | 'createdAt'
+    | 'userToFavPokemons'
+    | 'pokRatings'
+    | 'stats'
   >
 >;

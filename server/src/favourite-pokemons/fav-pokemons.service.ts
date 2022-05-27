@@ -10,12 +10,27 @@ import { AddFavPokemonDto } from './types';
 import { User, UserToFavPokemon } from '../users/entities';
 
 export class Service {
+  static async getOne(id: number) {
+    const pokemon = await FavouritePokemon.findOne({
+      where: {
+        id,
+      },
+      relations: ['stats'],
+    });
+
+    if (!pokemon) {
+      throw ApiError.NotFound(`Pokemon with id ${id} not found`);
+    }
+
+    return pokemon;
+  }
+
   static async add(userId: number, dto: AddFavPokemonDto) {
     const user = await User.findOne({
       where: {
         id: userId,
       },
-      relations: ['userToFavPokemons'],
+      relations: ['userToFavPokemons', 'stats'],
     });
 
     if (!user) {
@@ -29,10 +44,9 @@ export class Service {
     });
 
     if (!favPokemon) {
-      // @ts-ignore
-      favPokemon = { ...dto };
-      // @ts-ignore
-      await FavouritePokemon.save(favPokemon);
+      favPokemon = FavouritePokemon.create();
+      Object.assign(favPokemon, dto);
+      await favPokemon.save();
     }
 
     const userPokemon = await UserToFavPokemon.findOne({

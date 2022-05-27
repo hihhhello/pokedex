@@ -3,6 +3,7 @@ import {
   BaseEntity,
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -14,8 +15,14 @@ export class UserToFavPokemon extends BaseEntity {
   id: number;
 
   @ManyToOne(() => User, (user) => user.userToFavPokemons)
+  @JoinColumn({
+    name: 'user_id',
+  })
   user: User;
 
   @ManyToOne(() => FavouritePokemon, (pokemon) => pokemon.userToFavPokemons)
+  @JoinColumn({
+    name: 'pokemon_id',
+  })
   favPokemon: FavouritePokemon;
 }
