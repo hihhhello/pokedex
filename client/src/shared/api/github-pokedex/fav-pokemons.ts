@@ -5,6 +5,8 @@ import { AddFavPokemonDto, FavPokemonsReturnData } from './types';
 
 const BASE_URL = '/fav-pokemons';
 
+// TODO: refactor to pokemon dir
+
 export const getFavPokemons = (
   userId: number,
   pagination?: PaginationOptions

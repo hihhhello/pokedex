@@ -1,16 +1,12 @@
-import { FavPokemon } from '../types';
-import { User } from './models';
+import { User, UserFavPokemon } from './models';
 
-export type UserFavPokemon = {
-  id: number;
-  favPokemon: FavPokemon;
-};
+export type FavPokemonsReturnData = PaginatedReturndData<UserFavPokemon>;
 
-export interface FavPokemonsReturnData {
+export interface PaginatedReturndData<T> {
   count: number;
   next: null | string;
   previous: null | string;
-  results: UserFavPokemon[];
+  results: T[];
 }
 
 export interface AddFavPokemonDto {
