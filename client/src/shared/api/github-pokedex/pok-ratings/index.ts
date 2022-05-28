@@ -21,12 +21,14 @@ export const editPokRating = (
   reviewId: number,
   dto: EditPokRatingDto
 ): AxiosPromise<PokRating> => {
-  return apiInstance.patch(`${BASE_URL}/${reviewId}`, dto);
+  return apiInstance.patch(`${BASE_URL}/pokemon/${reviewId}`, dto);
 };
 
 export const getPokRatingsList = (
   pokemonId: number,
   pagination?: PaginationOptions
 ): AxiosPromise<PaginatedPokRatings> => {
-  return apiInstance.get(`${BASE_URL}/${pokemonId}`, { params: pagination });
+  return apiInstance.get(`${BASE_URL}/pokemon/${pokemonId}`, {
+    params: pagination,
+  });
 };

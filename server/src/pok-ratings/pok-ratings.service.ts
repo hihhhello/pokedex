@@ -93,7 +93,7 @@ export class Service {
     });
 
     if (!pokemon) {
-      throw ApiError.BadRequest('Pokemon not found');
+      throw ApiError.NotFound('Pokemon not found');
     }
 
     const limit = pagination?.limit || DEFAULT_PAGINATION_LIMIT;

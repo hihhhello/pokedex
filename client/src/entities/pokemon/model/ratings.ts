@@ -1,5 +1,7 @@
+import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
 import { githubPokedexApi, PaginationOptions } from 'shared/api';
-import { handleToastError } from 'shared/lib';
+import { parseAxiosError } from 'shared/lib';
 
 export const fetchPokemonRatings = async (
   pokemonId: number,
@@ -13,9 +15,23 @@ export const fetchPokemonRatings = async (
 
     return data;
   } catch (e: any) {
-    handleToastError(
-      e,
-      'Something gone wrong while fetching pokemon ratings. Refresh the page and try again.'
-    );
+    // If getting 404 status - just skip, because pokemon might be not in db yet
+    if (e instanceof AxiosError) {
+      const { status, statusText, message } = parseAxiosError(e);
+
+      if (status === 404) {
+        return null;
+      }
+
+      toast(message || statusText, {
+        type: 'error',
+      });
+
+      return;
+    }
+
+    toast(e.message, {
+      type: 'error',
+    });
   }
 };

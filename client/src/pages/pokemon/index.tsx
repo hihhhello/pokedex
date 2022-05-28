@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { LoadingPage } from 'shared/ui';
 import { ToggleFavPokemon } from 'features/toggle-fav-pokemon';
 import { pokemonModel, PokemonCard } from 'entities/pokemon';
-import { PokStats } from 'shared/api';
+import { PokStats, PokRating } from 'shared/api';
 
 const PokemonPage = () => {
   const { favPokemonsApiIds } = pokemonModel.usePokemonContext();
@@ -20,6 +20,7 @@ const PokemonPage = () => {
   const [pokemonStats, setPokemonStats] = useState<PokStats | null | undefined>(
     null
   );
+  const [pokemonRatings, setPokemonRatings] = useState<PokRating[]>([]);
 
   const getPokemon = async (pokemonName: string) => {
     try {
@@ -50,9 +51,19 @@ const PokemonPage = () => {
     setPokemonStats(data?.stats);
   };
 
+  const getLocalPokemonRatings = async (pokemonId: number) => {
+    setLoading(true);
+    const data = await pokemonModel.fetchPokemonRatings(pokemonId);
+    if (data) {
+      setPokemonRatings(data.results);
+    }
+    setLoading(false);
+  };
+
   useEffect(() => {
     if (pokemon) {
       getLocalPokemon(pokemon.id);
+      getLocalPokemonRatings(pokemon.id);
     }
   }, [pokemon]);
 
