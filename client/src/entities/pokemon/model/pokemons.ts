@@ -31,3 +31,32 @@ export const fetchOnePokemon = async (
     });
   }
 };
+
+export const fetchOnePokemonByApiId = async (
+  apiId: number
+): Promise<FavPokemon | null | undefined> => {
+  try {
+    const { data } = await githubPokedexApi.getOnePokemonByApiId(apiId);
+
+    return data;
+  } catch (e: any) {
+    // If getting 404 status - creating new user otherwise handle an error
+    if (e instanceof AxiosError) {
+      const { status, statusText, message } = parseAxiosError(e);
+
+      if (status === 404) {
+        return null;
+      }
+
+      toast(message || statusText, {
+        type: 'error',
+      });
+
+      return;
+    }
+
+    toast(e.message, {
+      type: 'error',
+    });
+  }
+};

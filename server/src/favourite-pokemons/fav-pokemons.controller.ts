@@ -18,6 +18,21 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
   }
 });
 
+router.get(
+  '/apiId/:id',
+  async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { id } = req.params;
+
+      const pokemon = await Service.getOneByApiId(+id);
+
+      return res.status(200).json(pokemon);
+    } catch (e) {
+      next(e);
+    }
+  }
+);
+
 router.post(
   '/user/:userId',
   checkSchema(createValidationSchema),

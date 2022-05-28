@@ -25,6 +25,21 @@ export class Service {
     return pokemon;
   }
 
+  static async getOneByApiId(id: number) {
+    const pokemon = await FavouritePokemon.findOne({
+      where: {
+        apiId: id,
+      },
+      relations: ['stats'],
+    });
+
+    if (!pokemon) {
+      throw ApiError.NotFound(`Pokemon with apiId ${id} not found`);
+    }
+
+    return pokemon;
+  }
+
   static async add(userId: number, dto: AddFavPokemonDto) {
     const user = await User.findOne({
       where: {

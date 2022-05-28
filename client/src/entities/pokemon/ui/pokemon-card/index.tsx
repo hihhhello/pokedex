@@ -48,7 +48,7 @@ export const PokemonCard = ({
             aria-label={`Average pokemon rating ${averageRating} from 5`}
             fontSize={32}
           >
-            {averageRating}/5
+            {averageRating.toFixed(1)}/5
           </Typography>
           <Star
             fontSize="large"

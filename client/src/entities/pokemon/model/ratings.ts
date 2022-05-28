@@ -1,7 +1,8 @@
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import { githubPokedexApi, PaginationOptions } from 'shared/api';
-import { parseAxiosError } from 'shared/lib';
+import { AddPokRatingDto } from 'shared/api/github-pokedex/pok-ratings/types';
+import { handleToastError, parseAxiosError } from 'shared/lib';
 
 export const fetchPokemonRatings = async (
   pokemonId: number,
@@ -33,5 +34,14 @@ export const fetchPokemonRatings = async (
     toast(e.message, {
       type: 'error',
     });
+  }
+};
+
+export const addPokemonRating = async (data: AddPokRatingDto) => {
+  try {
+    const { data: returnData } = await githubPokedexApi.addPokRating(data);
+    return returnData;
+  } catch (e: any) {
+    handleToastError(e);
   }
 };

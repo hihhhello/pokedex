@@ -8,7 +8,7 @@ export interface StarRating {
 export interface PokRating {
   id: number;
   user: User;
-  pokemon: FavPokemon;
+  favPokemon: FavPokemon;
   text: string;
   rating: number;
   createdAt: string;
