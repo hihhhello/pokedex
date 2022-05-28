@@ -69,6 +69,7 @@ export const AddPokReview = (props: Props) => {
         display: 'flex',
         flexDirection: 'column-reverse',
         alignItems: 'center',
+        justifyContent: 'center',
         width: '100%',
         gap: 2,
         ...props.sx,
@@ -77,7 +78,9 @@ export const AddPokReview = (props: Props) => {
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'space-around',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 2,
           width: '100%',
         }}
       >

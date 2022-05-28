@@ -4,12 +4,13 @@ import { User } from 'shared/api';
 interface Props {
   user: User;
   rating: number;
+  date: string;
   text: string;
   actions?: React.ReactNode[];
 }
 
 export const PokemonReviewRow = (props: Props) => {
-  const { rating, user, text, actions } = props;
+  const { rating, user, text, actions, date } = props;
 
   return (
     <Box
@@ -39,7 +40,17 @@ export const PokemonReviewRow = (props: Props) => {
           }}
         >
           <Avatar src={user.avatarUrl} />
-          <Typography fontSize={18}>{user.name || user.login}</Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <Typography fontSize={18}>{user.name || user.login}</Typography>
+            <Typography fontSize={12}>
+              {new Date(date).toLocaleString()}
+            </Typography>
+          </Box>
         </Box>
         <Typography fontSize={20}>{rating}/5</Typography>
       </Box>

@@ -128,6 +128,10 @@ const PokemonPage = () => {
         <AddPokReview
           sx={{
             marginTop: 2,
+            width: {
+              xs: '100%',
+              md: '50%',
+            },
           }}
           pokemon={{
             apiId: localPokemon?.apiId || pokemon.id,
@@ -143,14 +147,19 @@ const PokemonPage = () => {
         display="flex"
         spacing={2}
         sx={{
-          width: '100%',
+          width: {
+            xs: '100%',
+            md: '50%',
+          },
           marginTop: 4,
           paddingInline: 2,
+          paddingBottom: 4,
         }}
       >
         {pokemonRatings.map((review) => (
           <PokemonReviewRow
             rating={review.rating}
+            date={review.createdAt}
             text={review.text}
             user={review.user}
             actions={[

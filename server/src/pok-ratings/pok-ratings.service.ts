@@ -123,6 +123,9 @@ export class Service {
       relations: ['user'],
       take: limit,
       skip: offset,
+      order: {
+        createdAt: 'DESC',
+      },
     });
 
     data.results = reviews;
