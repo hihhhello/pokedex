@@ -109,7 +109,7 @@ const PokemonPage = () => {
               width: 'min(100%, 400px)',
             }}
             name={name}
-            averageRating={localPokemon?.stats.average}
+            averageRating={localPokemon?.stats?.average}
             avatarUrl={pokemon?.sprites?.front_default}
             actions={[
               <ToggleFavPokemon
