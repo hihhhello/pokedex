@@ -45,3 +45,14 @@ export const addPokemonRating = async (data: AddPokRatingDto) => {
     handleToastError(e);
   }
 };
+
+export const deletePokemonRating = async (reviewId: number) => {
+  try {
+    const { data: returnData } = await githubPokedexApi.deletPokRating(
+      reviewId
+    );
+    return returnData;
+  } catch (e: any) {
+    handleToastError(e);
+  }
+};

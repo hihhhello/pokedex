@@ -10,6 +10,7 @@ import { PokRating, FavPokemon } from 'shared/api';
 import { AddPokReview } from 'features/add-pok-review';
 import { userModel } from 'entities/user';
 import { PokemonReviewRow } from 'entities/pokemon/ui/review-row';
+import { DeletePokReview } from 'features/delete-pok-review/ui';
 
 const PokemonPage = () => {
   const { favPokemonsApiIds } = pokemonModel.usePokemonContext();
@@ -152,6 +153,15 @@ const PokemonPage = () => {
             rating={review.rating}
             text={review.text}
             user={review.user}
+            actions={[
+              review.user.id === user?.id ? (
+                <DeletePokReview
+                  fetchRatings={getLocalPokemonRatings}
+                  fetchPokemon={getLocalPokemon}
+                  reviewId={review.id}
+                />
+              ) : null,
+            ]}
           />
         ))}
       </Stack>

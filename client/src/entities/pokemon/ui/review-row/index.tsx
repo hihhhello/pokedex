@@ -53,7 +53,12 @@ export const PokemonReviewRow = (props: Props) => {
       >
         {text}
       </Box>
-      {actions && <Box>{actions.map((item) => item)}</Box>}
+      {actions && (
+        <>
+          <Divider />
+          <Box>{actions.map((item) => item)}</Box>
+        </>
+      )}
     </Box>
   );
 };
