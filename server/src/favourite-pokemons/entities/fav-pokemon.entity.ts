@@ -2,10 +2,12 @@ import {
   BaseEntity,
   Column,
   Entity,
-  ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { PokRating } from '../../pok-ratings';
+import { PokStats } from '../../pok-ratings/entities/pok-stats.entity';
 import { UserToFavPokemon } from '../../users';
 
 @Entity('fav_pokemon')
@@ -24,4 +26,10 @@ export class FavouritePokemon extends BaseEntity {
 
   @OneToMany(() => UserToFavPokemon, (entity) => entity.favPokemon)
   userToFavPokemons: UserToFavPokemon[];
+
+  @OneToMany(() => PokRating, (pokRating) => pokRating.favPokemon)
+  pokRatings: PokRating[];
+
+  @OneToOne(() => PokStats, (e) => e.favPokemon)
+  stats: PokStats;
 }

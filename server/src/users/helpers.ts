@@ -11,21 +11,17 @@ export const createValidationSchema: Record<keyof CreateUserDto, ParamSchema> =
     },
     avatarUrl: {
       optional: true,
-      isString: true,
     },
     githubHtmlUrl: {
       optional: true,
-      isString: true,
     },
     email: {
-      isEmail: true,
+      optional: true,
     },
     bio: {
-      isString: true,
       optional: true,
     },
     name: {
-      isString: true,
       optional: true,
     },
   };

@@ -5,6 +5,6 @@ export type CreateUserDto = Pick<
   User,
   Exclude<
     keyof User,
-    keyof BaseEntity | 'id' | 'createdAt' | 'userToFavPokemons'
+    keyof BaseEntity | 'id' | 'createdAt' | 'userToFavPokemons' | 'pokRatings'
   >
 >;
