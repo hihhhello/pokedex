@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { LoadingPage } from 'shared/ui';
 import { ToggleFavPokemon } from 'features/toggle-fav-pokemon';
 import { pokemonModel, PokemonCard } from 'entities/pokemon';
+import { PokStats } from 'shared/api';
 
 const PokemonPage = () => {
   const { favPokemonsApiIds } = pokemonModel.usePokemonContext();
@@ -16,6 +17,9 @@ const PokemonPage = () => {
 
   const [loading, setLoading] = useState(false);
   const [pokemon, setPokemon] = useState<Pokemon>();
+  const [pokemonStats, setPokemonStats] = useState<PokStats | null | undefined>(
+    null
+  );
 
   const getPokemon = async (pokemonName: string) => {
     try {
@@ -40,6 +44,18 @@ const PokemonPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Pokemon record from local DB
+  const getLocalPokemon = async (pokemonId: number) => {
+    const data = await pokemonModel.fetchOnePokemon(pokemonId);
+    setPokemonStats(data?.stats);
+  };
+
+  useEffect(() => {
+    if (pokemon) {
+      getLocalPokemon(pokemon.id);
+    }
+  }, [pokemon]);
+
   if (loading) {
     return <LoadingPage />;
   }
@@ -61,8 +77,8 @@ const PokemonPage = () => {
           sx={{
             width: 'min(100%, 400px)',
           }}
-          // @ts-ignore
           name={name}
+          averageRating={pokemonStats?.average}
           avatarUrl={pokemon?.sprites?.front_default}
           actions={[
             <ToggleFavPokemon
