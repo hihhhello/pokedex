@@ -106,7 +106,13 @@ export class Service {
       results: [],
     };
 
-    const count = await PokRating.count();
+    const count = await PokRating.count({
+      where: {
+        favPokemon: {
+          id: pokId,
+        },
+      },
+    });
 
     const reviews = await PokRating.find({
       where: {

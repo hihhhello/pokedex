@@ -9,6 +9,7 @@ import { pokemonModel, PokemonCard } from 'entities/pokemon';
 import { PokRating, FavPokemon } from 'shared/api';
 import { AddPokReview } from 'features/add-pok-review';
 import { userModel } from 'entities/user';
+import { PokemonReviewRow } from 'entities/pokemon/ui/review-row';
 
 const PokemonPage = () => {
   const { favPokemonsApiIds } = pokemonModel.usePokemonContext();
@@ -59,7 +60,11 @@ const PokemonPage = () => {
 
   const getLocalPokemonRatings = async (pokemonId: number) => {
     setLoading(true);
-    const data = await pokemonModel.fetchPokemonRatings(pokemonId);
+    // Use LIMIT only for showcase
+    const LIMIT = 500;
+    const data = await pokemonModel.fetchPokemonRatings(pokemonId, {
+      limit: LIMIT,
+    });
     if (data) {
       setPokemonRatings(data.results);
     }
@@ -90,8 +95,10 @@ const PokemonPage = () => {
         alignItems="center"
         sx={{
           padding: {
-            xs: 2,
             sm: 4,
+          },
+          marginTop: {
+            xs: 2,
           },
         }}
       >
@@ -118,6 +125,9 @@ const PokemonPage = () => {
       </Stack>
       {user && pokemon && (
         <AddPokReview
+          sx={{
+            marginTop: 2,
+          }}
           pokemon={{
             apiId: localPokemon?.apiId || pokemon.id,
             name: pokemon.name,
@@ -128,6 +138,23 @@ const PokemonPage = () => {
           fetchPokemon={getLocalPokemon}
         />
       )}
+      <Stack
+        display="flex"
+        spacing={2}
+        sx={{
+          width: '100%',
+          marginTop: 4,
+          paddingInline: 2,
+        }}
+      >
+        {pokemonRatings.map((review) => (
+          <PokemonReviewRow
+            rating={review.rating}
+            text={review.text}
+            user={review.user}
+          />
+        ))}
+      </Stack>
     </Stack>
   );
 };

@@ -108,7 +108,13 @@ export class Service {
       throw ApiError.BadRequest('User not found');
     }
 
-    const count = await UserToFavPokemon.count();
+    const count = await UserToFavPokemon.count({
+      where: {
+        user: {
+          id: userId,
+        },
+      },
+    });
 
     const pokemons = await UserToFavPokemon.find({
       where: {

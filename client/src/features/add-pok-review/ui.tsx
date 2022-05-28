@@ -1,4 +1,4 @@
-import { Rating, TextField, Box, Button } from '@mui/material';
+import { Rating, TextField, Box, Button, SxProps } from '@mui/material';
 import { pokemonModel } from 'entities/pokemon';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
@@ -12,6 +12,7 @@ interface Props {
   pokemon: AddFavPokemonDto;
   fetchRatings: (pokemonId: number) => Promise<void>;
   fetchPokemon: (apiId: number) => Promise<void>;
+  sx?: SxProps;
 }
 
 export const AddPokReview = (props: Props) => {
@@ -70,6 +71,7 @@ export const AddPokReview = (props: Props) => {
         alignItems: 'center',
         width: '100%',
         gap: 2,
+        ...props.sx,
       }}
     >
       <Box

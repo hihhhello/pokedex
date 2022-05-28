@@ -18,6 +18,7 @@ export const createValidationSchema: Record<keyof CreateUserDto, ParamSchema> =
       isString: true,
     },
     email: {
+      optional: true,
       isEmail: true,
     },
     bio: {
